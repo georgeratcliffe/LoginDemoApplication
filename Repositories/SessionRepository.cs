@@ -9,52 +9,18 @@ using System.Threading.Tasks;
 
 namespace LoginDemoApplication.Repositories
 {
-    public class DummySessionRepository : ISessionRepository
+    public class SessionRepository : ISessionRepository
     {
-        private ApiContext _context;
-        public DummySessionRepository()
+        private readonly DummyApiContext _context;
+        public SessionRepository(DummyApiContext context)
         {
-            //_context = context;
+            _context = context;
         }
-
-        //public IList<SessionDTO> GetAll(SessionParamsCreateDTO queryParameters)
-        //{
-
-        //    var result = new List<SessionDTO>()
-        //    {
-        //        new SessionDTO() {from = "01/01/2020", to = "01/02/200", count="5"},
-        //        new SessionDTO() {from = "01/02/2020", to = "01/03/200", count="12"},
-        //        new SessionDTO() {from = "01/03/2020", to = "01/04/200", count="38"}
-        //    };
-
-        //    return result;
-        //}
 
         public IList<SessionDTO> GetAll(SessionParamsCreateDTO queryParameters)
         {
+            var sessions = _context.Sessions;
 
-            var sessions = new List<Session>()
-            {
-                new Session() {Username = "John", Email = "jon@abc.com", Sessiondate= new DateTime(2019,1,1)},
-                new Session() {Username = "John", Email = "jon@abc.com", Sessiondate= new DateTime(2019,1,5)},
-                new Session() {Username = "Paul", Email = "paul@abc.com", Sessiondate= new DateTime(2020,1,24)},
-                new Session() {Username = "John", Email = "jon@abc.com", Sessiondate= new DateTime(2020,2,5)},
-                new Session() {Username = "Paul", Email = "paul@abc.com", Sessiondate= new DateTime(2020,1,1)},
-                new Session() {Username = "George", Email = "george@abc.com", Sessiondate= new DateTime(2020,3,19)},
-                new Session() {Username = "John", Email = "jon@abc.com", Sessiondate= new DateTime(2017,3,1)},
-                new Session() {Username = "John", Email = "jon@abc.com", Sessiondate= new DateTime(2017,7,10)},
-                new Session() {Username = "John", Email = "jon@abc.com", Sessiondate= new DateTime(2020,7,9)},
-                new Session() {Username = "Bill", Email = "bill@abc.com", Sessiondate= new DateTime(2020,7,9)},
-                new Session() {Username = "John", Email = "jon@abc.com", Sessiondate= new DateTime(2016,2,12)},
-                new Session() {Username = "John", Email = "jon@abc.com", Sessiondate= new DateTime(2020,7,9)},
-                new Session() {Username = "John", Email = "jon@abc.com", Sessiondate= new DateTime(2020,7,2)},
-                new Session() {Username = "Ringo", Email = "ringo@abc.com", Sessiondate= new DateTime(2020,7,2)}
-            };
-
-            //apicontext.Sessions.AddRange(testdata);
-            //apicontext.SaveChanges();
-            //var result = _context.Sessions.ToList();
-            //var result = _context.GetSessions();
 
             string granu = queryParameters.Granu.ToLower();
             int InLast = int.Parse(queryParameters.InLast);

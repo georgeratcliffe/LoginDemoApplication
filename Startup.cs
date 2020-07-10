@@ -31,10 +31,10 @@ namespace LoginDemoApplication
         {
             //services.AddEntityFrameworkInMemoryDatabase();
 
-            //services.AddDbContext<ApiContext>(c =>
-            //    c.UseInMemoryDatabase());
+            services.AddDbContext<DummyApiContext>(c =>
+                c.UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()), ServiceLifetime.Scoped, ServiceLifetime.Scoped);
 
-            //services.AddScoped<ApiContext>();
+            services.AddScoped<DummyApiContext>();
 
 
             //Configuration.GetConnectionString("EmployeeDBConnection");
@@ -49,7 +49,7 @@ namespace LoginDemoApplication
                        options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver())
                             .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
-            services.AddScoped<ISessionRepository, DummySessionRepository>();
+            services.AddScoped<ISessionRepository, SessionRepository>();
 
 
 
@@ -89,7 +89,7 @@ namespace LoginDemoApplication
         }
 
 
-        private static void AddTestData(ApiContext apicontext)
+        private static void AddTestData(DummyApiContext apicontext)
         {
             var testdata = new List<Session>()
             {
