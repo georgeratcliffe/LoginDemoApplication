@@ -32,6 +32,8 @@ namespace LoginDemoApplication.Models
                 new Session() {Username = "John", Email = "jon@abc.com", Sessiondate= new DateTime(2016,2,12)},
                 new Session() {Username = "John", Email = "jon@abc.com", Sessiondate= new DateTime(2020,7,9)},
                 new Session() {Username = "John", Email = "jon@abc.com", Sessiondate= new DateTime(2020,7,2)},
+                new Session() {Username = "Sam", Email = "sam@abc.com", Sessiondate= new DateTime(2020,1,23)},
+                new Session() {Username = "John", Email = "jon@abc.com", Sessiondate= new DateTime(2019,12,27)},
                 new Session() {Username = "Ringo", Email = "ringo@abc.com", Sessiondate= new DateTime(2020,7,2)}
             };
 

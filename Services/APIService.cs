@@ -1,29 +1,16 @@
 ﻿using LoginDemoApplication.DTOS;
 using LoginDemoApplication.Models;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace LoginDemoApplication.Repositories
+namespace LoginDemoApplication.Services
 {
-    public class SessionRepository : ISessionRepository
+    public class APIService : IAPIService
     {
-        private readonly DummyApiContext _context;
-        public SessionRepository(DummyApiContext context)
+        public IList<SessionDTO> GenerateDTOS(DbSet<Session> sessions, string granu, int InLast)
         {
-            _context = context;
-        }
-
-        public IList<SessionDTO> GetAll(SessionParamsCreateDTO queryParameters)
-        {
-            var sessions = _context.Sessions;
-
-
-            string granu = queryParameters.Granu.ToLower();
-            int InLast = int.Parse(queryParameters.InLast);
             DateTime today = DateTime.Now;
 
             DataTable sessiondatatable = new DataTable();
@@ -101,6 +88,5 @@ namespace LoginDemoApplication.Repositories
 
             return sessionDTOs;
         }
-
     }
 }

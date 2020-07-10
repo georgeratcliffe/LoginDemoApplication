@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using LoginDemoApplication.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -64,7 +61,6 @@ namespace LoginDemoApplication.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
-            //await signInManager.SignOutAsync();
 
             if (ModelState.IsValid)
             {
@@ -84,9 +80,7 @@ namespace LoginDemoApplication.Controllers
         [HttpGet]
         public async Task<IActionResult> EditUser(string name)
         {
-
             var user = await userManager.FindByNameAsync(name);
-            //var email = await userManager.GetEmailAsync(user);
 
             var model = new EditUserViewModel()
             {
@@ -124,9 +118,6 @@ namespace LoginDemoApplication.Controllers
             await signInManager.SignOutAsync();
             return RedirectToAction("index", "home");
         }
-
-
-
 
     }
 }

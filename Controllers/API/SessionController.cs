@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using LoginDemoApplication.DTOS;
-using LoginDemoApplication.Models;
 using LoginDemoApplication.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -39,22 +35,14 @@ namespace LoginDemoApplication.Controllers.API
                 return BadRequest();
             }
 
-
-            //SessionParamsCreateDTO aaa = new SessionParamsCreateDTO();
-            //aaa.InLast = "111";
-            //aaa.Granu = "222";
-
-            //var aaa = new JsonSerializer();
-            //aaa.Serialize(_sessionRepository.GetAll(createDTO));
             string result = JsonConvert.SerializeObject(_sessionRepository.GetAll(createDTO));
 
-            return Ok(result);
-        }
+            if (result == null)
+            {
+                return NotFound();
+            }
 
-        // PUT api/<SessionController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
+            return Ok(result);
         }
 
     }
