@@ -1,16 +1,14 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using LoginDemoApplication.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Identity;
+using LoginDemoApplication.Repositories;
+using LoginDemoApplication.Services;
 
 namespace LoginDemoApplication
 {
@@ -26,17 +24,17 @@ namespace LoginDemoApplication
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //Configuration.GetConnectionString("EmployeeDBConnection");
+            services.AddDbContext<DummyApiContext>(c =>
+                c.UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()), ServiceLifetime.Scoped, ServiceLifetime.Scoped);
+
             services.AddDbContextPool<AppDbContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("EmployeeDBConnection")));
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<AppDbContext>();
 
-            //services.Configure<IdentityOptions>(options =>
-            //{
-            //    options.
-            //});
+            services.AddScoped<ISessionRepository, DummySessionRepository>();
+            services.AddScoped<IAPIService, APIService>();
 
             services.AddControllersWithViews();
         }
@@ -69,5 +67,6 @@ namespace LoginDemoApplication
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
+
     }
 }

@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "API Help";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>To return test data via the endpoint the endpoint post a JSON object to https://localhost:<i>portnumber</i>/api/session </p>
+
+<p>This example will list the session count for each of the last 10 days</p>
+{
+    "InLast":"10",
+    "Granu":"day"
+}
+<br/> <br/>
+<p>"Granu" parameter must be "year", "month" or "day"</p>
