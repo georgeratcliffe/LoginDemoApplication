@@ -2,6 +2,7 @@
 using LoginDemoApplication.Models;
 using LoginDemoApplication.Services;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace LoginDemoApplication.Repositories
 {
@@ -21,8 +22,9 @@ namespace LoginDemoApplication.Repositories
             string granu = queryParameters.Granu.ToLower();
             int InLast = int.Parse(queryParameters.InLast);
 
-            var sessions = _context.Sessions;
-            return _apiservice.GenerateDTOS(sessions, granu, InLast);
+            var sessions = _apiservice.GetAsync(_context.Sessions, granu, InLast).Result;
+
+            return sessions.ToList();
         }
 
     }
